@@ -1,0 +1,132 @@
+[
+  {
+    "name": "Anakkara",
+    "location": "Parc Godfrey",
+    "address": "",
+    "website": "https://anakkara-ach.com/anakkara/fr/camp-ete-anakkara/",
+    "registration": "Dec 1, 2024",
+    "logo": "https://anakkara-ach.com/anakkara/wp-content/uploads/2021/01/pianok-1.jpg",
+    "rates": ""
+  },
+  {
+    "name": "YMCA NDG",
+    "location": "YMCA NDG",
+    "address": "4335 Hampton Ave, Montreal, Quebec H4A 2L3",
+    "website": "https://www.ymcaquebec.org/fr/trouver-un-y/camps-de-jour/camp-ymca-notre-dame-de-grace",
+    "registration": "",
+    "logo": "https://www.ymcaquebec.org/getmedia/45736bb2-7947-4763-bf6d-b7ac0bb8273c/ndg.png",
+    "rates": ""
+  },
+  {
+    "name": "Flex-arts",
+    "location": "NDG Community Centre",
+    "address": "3757 Av. Prud'homme, Montréal, QC H4A 3H8",
+    "website": "",
+    "registration": "",
+    "logo": "https://flexart.ca/wp-content/uploads/sites/32/2017/07/LOGO_Flex_Art.jpg",
+    "rates": ""
+  },
+  {
+    "name": "Lumi",
+    "location": "Lower Canada College",
+    "address": "4090 Av. Royal, Montréal, QC H4A 2M5",
+    "website": "https://camp-lumi.com/",
+    "registration": "Dec 1, 2024",
+    "logo": "https://camp-lumi.com/wp-content/uploads/2022/10/camp-lumi-logo.svg",
+    "logo-bg-size": "contain",
+    "rates": ""
+  },
+  {
+    "name": "Concordia Kids Camps",
+    "location": "",
+    "address": "",
+    "website": "https://www.concordia.ca/summer/camps.html",
+    "registration": "",
+    "logo": "https://www.concordia.ca/etc/designs/concordia/clientlibs/img/logo-concordia-university.png",
+    "logo-bg-size": "contain",
+    "rates": ""
+  },
+  {
+    "name": "Visual Arts Centre",
+    "location": "",
+    "address": "350 Victoria Avenue - Montreal (QC) H3Z 2N4",
+    "website": "https://visualartscentre.ca/school-of-art/summer-camp",
+    "registration": "Jan, 2025",
+    "logo": "https://visualartscentre.ca/wp-content/themes/h9_vac/assets/images/logo.svg?ver=2.0.7",
+    "logo-bg-size": "contain",
+    "rates": ""
+  },
+  {
+    "name": "PEDALHEADS",
+    "location": "",
+    "address": "",
+    "website": "https://pedalheads.com/fr/camp",
+    "registration": "",
+    "logo": "https://pedalheads.com/_next/image?url=https%3A%2F%2Fcdn.pedalheads.com%2Fimages%2Fnew-website-2023%2Faboutuspage%2Fbike-camps-for-kids.jpg&w=640&q=75",
+    "rates": ""
+  },
+  {
+    "name": "Montreal Children's Theatre",
+    "location": "",
+    "address": "",
+    "website": "https://info296857.wixsite.com/mtlchildrenstheatre?lang=fr",
+    "registration": "Now",
+    "logo": "https://static.wixstatic.com/media/aa1982_15a247b06b65415aa38e665a89f0f387~mv2.jpg/v1/fill/w_533,h_533,al_c,q_80,enc_auto/aa1982_15a247b06b65415aa38e665a89f0f387~mv2.jpg",
+    "rates": ""
+  },
+  {
+    "name": "La marmaille",
+    "location": "Eglise NDG",
+    "address": "5567 Chem. de la Côte-Saint-Antoine, Montréal, QC H4A 1R4",
+    "website": "https://lamarmaille.com/fr/",
+    "registration": "Coming soon",
+    "logo": "https://lamarmaille.com//public/static/project/theme/img/logo_green.png",
+    "logo-bg-size": "contain",
+    "rates": 370
+  },
+  {
+    "name": "CEPSUM",
+    "location": "",
+    "address": "",
+    "website": "https://www.cepsum.umontreal.ca/regroupement-activite/camps-de-jour-cepsum/?AGE=008009",
+    "registration": "",
+    "logo": "",
+    "rates": ""
+  },
+  {
+    "name": "ymca westmount",
+    "location": "",
+    "address": "",
+    "website": "",
+    "registration": "",
+    "logo": "",
+    "rates": ""
+  },
+  {
+    "name": "Montreal west camp",
+    "location": "",
+    "address": "",
+    "website": "https://montreal-west.ca/en/recreation/activities-information-online-registration/day-camp/",
+    "registration": "",
+    "logo": "",
+    "rates": ""
+  },
+  {
+    "name": "Questo gym",
+    "location": "5320 Avenue Kensington, Montreal, Quebec H3X 3S7",
+    "address": "",
+    "website": "https://enquesto.ca/summer-camp",
+    "registration": "",
+    "logo": "",
+    "rates": ""
+  },
+  {
+    "name": "ETS",
+    "location": "",
+    "address": "",
+    "website": "",
+    "registration": "",
+    "logo": "",
+    "rates": ""
+  }
+]
