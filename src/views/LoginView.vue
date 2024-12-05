@@ -1,39 +1,61 @@
 <template>
   <div>
-    <app-header></app-header>
-    <form class="p-4">
-      <cdx-field>
-        <cdx-text-input v-model="email" />
-        <template #label>Email</template>
-        <template #description
-          >Start by entering your email address and we'll send you a pin</template
-        >
-      </cdx-field>
-      <cdx-button action="progressive" weight="primary" size="large" @click="login"
-        >SEND</cdx-button
-      >
-    </form>
+    <v-alert v-if="alertContent" :type="alertContent.type">{{ alertContent.message }}</v-alert>
+    <v-form v-if="showForm" @submit.prevent="login" v-model="form">
+      <v-container>
+        <v-row>
+          <v-col>
+            <p>
+              To create your account, or log in, enter your email address and we'll sent you a
+              personal login link. No need to memorize a password.
+            </p>
+            <v-text-field
+              class="my-8"
+              v-model="email"
+              label="Email"
+              :rules="[rules.required, rules.email]"
+            ></v-text-field>
+            <v-btn variant="elevated" color="primary" :disabled="!form" @click.prevent="login"
+              >submit</v-btn
+            >
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-form>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { CdxField, CdxTextInput, CdxButton } from '@wikimedia/codex'
-import AppHeader from '@/components/AppHeader.vue'
+import useLogin from '@/composables/useLogin'
+
+const form = ref()
+const alertContent = ref(null)
+const showForm = ref(true)
+const { startLogin } = useLogin()
 const email = ref('')
-const login = async (e) => {
-  e.preventDefault()
-  const baseUrl =
-    'https://script.google.com/macros/s/AKfycby97HVHIBqx3LEol1tPQ7SSG6QL6vEOQJR7zwstqKDI4idzGCQdmaB7o8qe704KcXSpUA/exec'
-  const url = baseUrl + '?action=loginWithEmail'
-  const response = await fetch(url, {
-    method: 'POST',
-    body: JSON.stringify({ email: email.value }),
-    headers: {
-      'Content-Type': 'text/plain',
-    },
-  })
-  const text = await response.json()
-  console.log('oh yeah!', email.value, text)
+const login = async () => {
+  const result = await startLogin(email.value)
+  if (result.result) {
+    alertContent.value = {
+      message: 'Check your email for a login link',
+      type: 'info',
+    }
+    showForm.value = false
+  } else {
+    alertContent.value = {
+      message: 'Something went wrong: ' + result.error,
+      type: 'error',
+    }
+  }
+}
+
+const rules = {
+  required: (value) => !!value || 'Required.',
+  email: (value) => {
+    const pattern =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    return pattern.test(value) || 'Invalid e-mail.'
+  },
 }
 </script>

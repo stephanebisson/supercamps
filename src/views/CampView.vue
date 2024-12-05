@@ -1,23 +1,26 @@
 <script setup>
-import AppHeader from '@/components/AppHeader.vue'
-import BackButton from '@/components/BackButton.vue'
-import CampDetails from '@/components/CampDetails.vue'
 import useCampsStore from '../stores/camps'
-const { findByName } = useCampsStore()
+const { findById } = useCampsStore()
 const props = defineProps({
-  campName: String,
+  campId: String,
 })
 
-const camp = findByName(props.campName)
+const camp = findById(props.campId)
 </script>
 
 <template>
-  <div class="h-full">
-    <app-header>
-      <template v-slot:left>
-        <back-button></back-button>
-      </template>
-    </app-header>
-    <camp-details :camp="camp"></camp-details>
-  </div>
+  <v-container>
+    <v-btn
+      prepend-icon="mdi-arrow-left-bold-outline"
+      variant="outlined"
+      class="mb-4"
+      @click="$router.go(-1)"
+      >back</v-btn
+    >
+    <v-card>
+      <v-img height="200px" :src="camp.logo" cover></v-img>
+      <v-card-title>{{ camp.name }}</v-card-title>
+      <v-card-subtitle>Short desc</v-card-subtitle>
+    </v-card>
+  </v-container>
 </template>

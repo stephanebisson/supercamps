@@ -3,21 +3,20 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
+import { initializeApp } from 'firebase/app'
+import { getAuth, connectAuthEmulator } from 'firebase/auth'
+import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore'
+import { VueFire, VueFireAuth } from 'vuefire'
+
+// Vuetify
+import 'vuetify/styles'
+import { createVuetify } from 'vuetify'
+import * as components from 'vuetify/components'
+import * as directives from 'vuetify/directives'
+import { aliases, mdi } from 'vuetify/iconsets/mdi'
+
 import App from './App.vue'
 import router from './router'
-
-const vueApp = createApp(App)
-vueApp.use(createPinia())
-vueApp.use(router)
-vueApp.mount('#app')
-
-// ----------
-
-// Import the functions you need from the SDKs you need
-import { initializeApp } from 'firebase/app'
-import { getAnalytics } from 'firebase/analytics'
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -31,6 +30,35 @@ const firebaseConfig = {
   measurementId: 'G-6Y10NYN30S',
 }
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig)
-const analytics = getAnalytics(app)
+const firebaseApp = initializeApp(firebaseConfig)
+
+const vuetify = createVuetify({
+  components,
+  directives,
+  icons: {
+    defaultSet: 'mdi',
+    aliases,
+    sets: {
+      mdi,
+    },
+  },
+})
+
+const vueApp = createApp(App)
+vueApp.use(createPinia())
+vueApp.use(router)
+vueApp.use(VueFire, {
+  firebaseApp,
+  modules: [VueFireAuth()],
+})
+vueApp.use(vuetify)
+
+const auth = getAuth()
+auth.useDeviceLanguage()
+if (location.hostname === 'localhost') {
+  connectAuthEmulator(auth, 'http://127.0.0.1:9099')
+  const db = getFirestore()
+  connectFirestoreEmulator(db, '127.0.0.1', 8088)
+}
+
+vueApp.mount('#app')

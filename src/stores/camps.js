@@ -1,14 +1,18 @@
+// import { collection } from 'firebase/firestore'
+// import { useCollection, useFirestore } from 'vuefire'
 import { ref } from 'vue'
-import { defineStore } from 'pinia'
-import campsFile from '../data/camps.json'
+import campsData from '@/data/camps.json'
 
-const useCampsStore = defineStore('camps', () => {
-  const camps = ref(campsFile)
-  function findByName(name) {
-    return camps.value.find((c) => c.name === name)
+const useCampsStore = () => {
+  // const firestore = useFirestore()
+  // const campsRef = collection(firestore, 'camps')
+  // const camps = useCollection(campsRef)
+  const camps = ref(campsData)
+  function findById(id) {
+    return camps.value.find((c) => c.id === id)
   }
 
-  return { camps, findByName }
-})
+  return { camps, findById }
+}
 
 export default useCampsStore

@@ -12,8 +12,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
-  build: {
-    outDir: './public',
-    emptyOutDir: true, // also necessary
-  },
 })

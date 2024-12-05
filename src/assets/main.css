@@ -1,36 +1,6 @@
-@import '@wikimedia/codex/dist/codex.style.css';
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-html,
-body,
-#app {
-  height: 100%;
-}
-
 .bg-soleil {
   background-image: url(./soleil.png);
   background-position: center;
   background-repeat: no-repeat;
   background-size: contain;
-}
-
-.slide-left-enter-active,
-.slide-left-leave-active,
-.slide-right-enter-active,
-.slide-right-leave-active {
-  transition-duration: 0.5s;
-  transition-property: transform;
-}
-
-.slide-left-enter-from,
-.slide-left-leave-to {
-  transform: translateX(100vw);
-}
-
-.slide-right-enter-from,
-.slide-right-leave-to {
-  transform: translateX(-100vw);
 }

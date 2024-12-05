@@ -1,9 +1,13 @@
+import { getCurrentUser } from 'vuefire'
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import CampsView from '@/views/CampsView.vue'
 import CampView from '@/views/CampView.vue'
 import NewCampView from '@/views/NewCampView.vue'
 import LoginView from '@/views/LoginView.vue'
+import LoginConfirmView from '@/views/LoginConfirmView.vue'
+import ProfileView from '@/views/ProfileView.vue'
+import TestView from '@/views/TestView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,7 +23,7 @@ const router = createRouter({
       component: CampsView,
     },
     {
-      path: '/camp/:campName',
+      path: '/camp/:campId',
       name: 'camp',
       props: true,
       component: CampView,
@@ -35,6 +39,22 @@ const router = createRouter({
       component: LoginView,
     },
     {
+      path: '/loginconfirm',
+      name: 'loginconfirm',
+      component: LoginConfirmView,
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
+      meta: { auth: true },
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: TestView,
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
@@ -43,6 +63,26 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
   ],
+})
+
+router.beforeEach(async (to) => {
+  // routes with `meta: { requiresAuth: true }` will check for
+  // the users, others won't
+  if (to.meta.auth) {
+    const currentUser = await getCurrentUser()
+    // if the user is not logged in, redirect to the login page
+    if (!currentUser) {
+      return {
+        path: '/login',
+        query: {
+          // we keep the current path in the query so we can
+          // redirect to it after login with
+          // `router.push(route.query.redirect || '/')`
+          redirect: to.fullPath,
+        },
+      }
+    }
+  }
 })
 
 router.afterEach((to, from) => {
