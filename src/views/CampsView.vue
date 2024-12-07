@@ -1,9 +1,34 @@
 <script setup>
-import useCampsStore from '@/stores/camps'
-const { camps } = useCampsStore()
+import { getCurrentUser } from 'vuefire'
+import useCamps from '@/composables/useCamps'
+
+const user = await getCurrentUser()
+const { camps, updateCamp } = useCamps()
 
 const isRegistrationOpen = (camp) => {
   return !!camp.registration
+}
+
+const isLiked = (camp) => {
+  if (!user) {
+    return false
+  }
+  const likes = camp.likes || []
+  return likes.indexOf(user.email) !== -1
+}
+
+const toggleLike = (camp) => {
+  if (!user) {
+    return
+  }
+  const currentLikes = camp.likes || []
+  const index = currentLikes.indexOf(user.email)
+  if (index === -1) {
+    currentLikes.push(user.email)
+  } else {
+    currentLikes.splice(index, 1)
+  }
+  return updateCamp(camp.id, { likes: currentLikes })
 }
 </script>
 
@@ -30,7 +55,10 @@ const isRegistrationOpen = (camp) => {
                   <v-btn v-else :disabled="true" variant="tonal">Registration coming soon</v-btn>
                 </v-col>
                 <v-col cols="auto" style="margin-left: auto"
-                  ><v-btn icon="mdi-heart-outline"></v-btn
+                  ><v-btn
+                    :icon="isLiked(camp) ? 'mdi-heart' : 'mdi-heart-outline'"
+                    @click="toggleLike(camp)"
+                  ></v-btn
                 ></v-col>
               </v-row>
             </v-container>

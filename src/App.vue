@@ -3,9 +3,12 @@ import { ref } from 'vue'
 import { RouterView } from 'vue-router'
 import UserButton from '@/components/UserButton.vue'
 
-console.log('app script setup')
-
 const drawer = ref(false)
+const items = [
+  { key: 'camps', title: 'Camps', to: '/camps' },
+  { key: 'profile', title: 'Profile', to: '/profile' },
+  { key: 'about', title: 'About', to: '/about' },
+]
 </script>
 
 <template>
@@ -21,9 +24,12 @@ const drawer = ref(false)
     </v-app-bar>
     <v-navigation-drawer v-model="drawer">
       <v-list nav>
-        <v-list-item key="camps" title="Camps" to="/camps"></v-list-item>
-        <v-list-item key="profile" title="Profile" to="/profile"></v-list-item>
-        <v-list-item key="other" title="Other"></v-list-item>
+        <v-list-item
+          v-for="item in items"
+          :key="item.key"
+          :title="item.title"
+          :to="item.to"
+        ></v-list-item>
       </v-list>
     </v-navigation-drawer>
     <v-main>

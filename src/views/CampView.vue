@@ -1,11 +1,11 @@
 <script setup>
-import useCampsStore from '../stores/camps'
-const { findById } = useCampsStore()
+import useDoc from '@/composables/useDoc'
+
 const props = defineProps({
   campId: String,
 })
 
-const camp = findById(props.campId)
+const { data: camp } = await useDoc('camps/' + props.campId)
 </script>
 
 <template>

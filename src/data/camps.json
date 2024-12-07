@@ -2,11 +2,12 @@
   {
     "id": "anakkara",
     "name": "Anakkara",
-    "location": "Parc Godfrey",
-    "address": "",
+    "shortdesc": "Où les enfants viennent s’amuser, créer et se détendre.",
+    "location": "Kensington Presbyterian Church & Parc Leduc",
+    "address": "6225 Ave. Godfrey, Montréal, QC, H4B 1K3",
     "website": "https://anakkara-ach.com/anakkara/fr/camp-ete-anakkara/",
     "registration": "Dec 1, 2024",
-    "logo": "https://anakkara-ach.com/anakkara/wp-content/uploads/2021/01/pianok-1.jpg",
+    "logo": "https://anakkara-ach.com/anakkara/wp-content/uploads/2024/04/Anakkara-logo.png",
     "rates": ""
   },
   {

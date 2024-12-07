@@ -1,22 +1,37 @@
 <template>
   <div>
-    <h2>All profiles</h2>
-    <div v-for="profile in profiles" :key="profile.key">
-      <pre>{{ profile }}</pre>
-    </div>
-    <h2>MY profile</h2>
-    <h3>{{ myProfile?.id }}</h3>
-    <pre>{{ myProfile }}</pre>
+    <v-btn @click="importCamps">inport camps into db</v-btn>
+    <v-btn @click="createProfiles">create a bunch of profiles</v-btn>
   </div>
 </template>
 <script setup>
-import { collection } from 'firebase/firestore'
-import { useCollection, useFirestore } from 'vuefire'
-import useProfile from '@/composables/useProfile'
+import { getFirestore, collection, doc, setDoc } from 'firebase/firestore'
+import camps from '@/data/camps.json'
 
-const db = useFirestore()
-const colRef = collection(db, 'profiles')
-const profiles = useCollection(colRef)
+const db = getFirestore()
 
-const { profile: myProfile } = useProfile('stephane1@test.com')
+const importCamps = () => {
+  const colRef = collection(db, 'camps')
+  camps.forEach((c) => {
+    const id = c.id
+    delete c.id
+    setDoc(doc(colRef, id), c)
+  })
+}
+
+const createProfiles = () => {
+  const colRef = collection(db, 'profiles')
+  const profiles = [
+    { name: 'Alice A', email: 'alice@test.com' },
+    { name: 'Bob B', email: 'dod@test.com' },
+    { name: 'Carl C', email: 'carl@test.com' },
+    { name: 'Dwayne D', email: 'dwayne@test.com' },
+    { name: 'Etienne E', email: 'etienne@test.com' },
+  ]
+  profiles.forEach((p) => {
+    const id = p.email
+    const data = { name: p.name, postalCode: 'H4B1K9' }
+    setDoc(doc(colRef, id), data)
+  })
+}
 </script>
