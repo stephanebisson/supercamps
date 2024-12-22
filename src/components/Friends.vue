@@ -1,5 +1,5 @@
 <template>
-  <v-card title="Friends" subtitle="You don't have any friends yet">
+  <v-card>
     <v-tabs align-tabs="center" v-model="tabsModel">
       <v-tab value="friends"> Friends </v-tab>
       <v-tab value="requests"> Requests </v-tab>
@@ -7,7 +7,8 @@
     <v-tabs-window v-model="tabsModel">
       <v-tabs-window-item value="friends">
         <v-card>
-          <v-list v-if="friends" items="friends" item-title="name" item-value="email"></v-list>
+          <pre>{{ friends.value }}</pre>
+          <v-list v-if="friends" :items="friends" item-title="name" item-value="email"></v-list>
           <v-card-text v-else>You don't have any friends</v-card-text>
           <v-card-actions>
             <v-dialog v-model="dialog" transition="dialog-bottom-transition" fullscreen>
@@ -66,7 +67,38 @@
       </v-tabs-window-item>
       <v-tabs-window-item value="requests">
         <v-card>
-          <v-card-text>No friends requests at the moment</v-card-text>
+          <v-card-text v-if="incomings || outgoings">
+            <v-list v-if="incomings">
+              <v-list-subheader>Incoming</v-list-subheader>
+              <v-list-item v-for="i in incomings" :key="i.from" :title="i.from">
+                <template v-slot:append>
+                  <v-list-item-action
+                    ><v-btn color="primary" rounded @click="accept(i.from)"
+                      >Accept</v-btn
+                    ></v-list-item-action
+                  >
+                  <v-list-item-action end
+                    ><v-btn color="error" variant="outlined" rounded @click="ignore(i.from)"
+                      >Ignore</v-btn
+                    ></v-list-item-action
+                  >
+                </template>
+              </v-list-item>
+            </v-list>
+            <v-list v-if="outgoings">
+              <v-list-subheader>Outgoing</v-list-subheader>
+              <v-list-item v-for="o in outgoings" :key="o.to" :title="o.to">
+                <template v-slot:append>
+                  <v-list-item-action end
+                    ><v-btn color="error" variant="outlined" rounded @click="cancel(o.to)"
+                      >Cancel</v-btn
+                    ></v-list-item-action
+                  >
+                </template>
+              </v-list-item>
+            </v-list>
+          </v-card-text>
+          <v-card-text v-else>No friends requests at the moment</v-card-text>
         </v-card>
       </v-tabs-window-item>
     </v-tabs-window>
@@ -80,7 +112,8 @@ const tabsModel = ref('friends')
 const dialog = ref()
 const searchString = ref('')
 
-const { search, request, accept } = await useFriends()
+const { friends, search, request, accept, ignore, cancel, incomings, outgoings } =
+  await useFriends()
 
 const searchResults = computed(() => search(searchString.value))
 </script>

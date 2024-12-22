@@ -1,5 +1,5 @@
 import { computed } from 'vue'
-import { collection, doc, query, where, setDoc } from 'firebase/firestore'
+import { collection, doc, query, where, setDoc, deleteDoc } from 'firebase/firestore'
 import { getCurrentUser, useCollection, useFirestore } from 'vuefire'
 import useProfile from './useProfile'
 
@@ -10,7 +10,7 @@ const useFriends = async () => {
   const requestsColRef = collection(db, 'friend_requests')
   const { data: profiles } = useCollection(collection(db, 'profiles'))
 
-  const friends = computed(() => profile.friends || {})
+  const friends = computed(() => profile.value?.friends || [])
   const incomings = useCollection(query(requestsColRef, where('to', '==', user.email)))
   const outgoings = useCollection(query(requestsColRef, where('from', '==', user.email)))
 
@@ -86,12 +86,22 @@ const useFriends = async () => {
     // add my email to friend's profile
     const { profile: friendProfile, updateProfile: updateFriendProfile } = await useProfile(email)
     addFriend(friendProfile, user.email, updateFriendProfile)
+
+    // delete the request
+    const path = `/friend_requests/${email}-${user.email}`
+    return deleteDoc(doc(db, path))
   }
   const ignore = (email) => {
-    // mark request as ignored
+    const path = `/friend_requests/${email}-${user.email}`
+    return deleteDoc(doc(db, path))
   }
 
-  return { friends, search, incomings, outgoings, request, accept, ignore }
+  const cancel = (email) => {
+    const path = `/friend_requests/${user.email}-${email}`
+    return deleteDoc(doc(db, path))
+  }
+
+  return { friends, search, incomings, outgoings, request, accept, ignore, cancel }
 }
 
 export default useFriends

@@ -5,6 +5,9 @@
     </template>
     <v-list>
       <v-list-item>
+        {{ name }}
+      </v-list-item>
+      <v-list-item>
         <v-btn to="/profile">profile</v-btn>
       </v-list-item>
       <v-list-item>
@@ -15,7 +18,7 @@
   <v-btn v-else icon="mdi-account-outline" to="/login"></v-btn>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { getCurrentUser, useFirebaseAuth } from 'vuefire'
 import { onAuthStateChanged } from 'firebase/auth'
@@ -27,6 +30,8 @@ const auth = useFirebaseAuth()
 onAuthStateChanged(auth, (u) => {
   user.value = u
 })
+
+const name = computed(() => user.value.displayName)
 
 const logoutBtnClick = async () => {
   await auth.signOut()
